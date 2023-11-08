@@ -4,9 +4,8 @@ from detectron2 import model_zoo
 from detectron2.config import get_cfg
 from detectron2.data.datasets import register_coco_instances
 
-from . import PATH_MODEL_OUTPUT
 from .. import PATH_TR_IMG_DIR, PATH_VA_IMG_DIR, PATH_TE_IMG_DIR, \
-               PATH_TR_LABEL,   PATH_VA_LABEL,   PATH_TE_LABEL
+               PATH_TR_LABEL,   PATH_VA_LABEL,   PATH_TE_LABEL, PATH_MODEL_OUTPUT
 
 register_coco_instances("WWTP_tr", {}, PATH_TR_LABEL, PATH_TR_IMG_DIR)
 register_coco_instances("WWTP_va", {}, PATH_VA_LABEL, PATH_VA_IMG_DIR)
@@ -31,7 +30,7 @@ def GetBaseConfig(_loadTrainedModel=False, _checkPointModel="model_final.pth"):
         cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, _checkPointModel)
     cfg.SOLVER.IMS_PER_BATCH = 32  # real batch size
     cfg.SOLVER.BASE_LR = 0.008  # LR
-    cfg.SOLVER.MAX_ITER = 1000    # epoch
+    cfg.SOLVER.MAX_ITER = 500    # epoch
     cfg.MODEL.RPN.BATCH_SIZE_PER_IMAGE = 1024
     cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 1024   # The "RoIHead batch size". 128 is faster, and good enough for this toy dataset (default: 512)
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = 1  # only has one class (icelake)
