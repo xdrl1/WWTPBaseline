@@ -12,8 +12,20 @@ docker exec -it <docker-container-id> bash
 
 Specify `--gpus device` according to your own machine.
 
+## Step
 
-## log
+1. Fix names of test images:
 
-What is `Thumbs.db` in test? I delete it anyway.
-What is `Thumbsdb` in test? I delete it anyway.
+    ```bash
+    python fix_test.py
+    ```
+
+    Note that only run ONCE.
+
+2. Get results:
+
+    ```bash
+    python run.py
+    ```
+
+
