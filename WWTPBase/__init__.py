@@ -21,4 +21,7 @@ PATH_TE_ESTM = os.path.join(PATH_TMP, "TEEstm")
 PATH_VA_ESTM_PLOT = os.path.join(PATH_TMP, "VAEstmPlot")
 PATH_TE_ESTM_PLOT = os.path.join(PATH_TMP, "TEEstmPlot")
 
+PATH_VA_GEOJSON = os.path.join(PATH_TMP, 'va_frcnn.geojson')
+PATH_TE_GEOJSON = os.path.join(PATH_TMP, 'te_frcnn.geojson')
+
 CONFINDENCE = 0.2

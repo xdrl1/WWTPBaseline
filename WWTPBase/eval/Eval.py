@@ -1,28 +1,40 @@
-import geopandas
 import os
 
 from shapely.geometry import Polygon
 
-from WWTPBase.utils.File import LoadPKL
+from WWTPBase.utils.File import LoadPKL, SaveJson
+from WWTPBase.utils.Geometry import pixel_coords_to_latlon
 
 
 
-def Estm2GDF(estmpath):
+def Estm2GeoJson(estmpath, tarFileDir):
     """
     TODO
     """
-    geo_series_list = []
+    predDict = {
+        "type": "FeatureCollection",
+        "features":[]
+    }
     id = 0
-    for feature in os.listdir(estmpath):
-        pred_polygon = Polygon(feature['geometry']['coordinates'][0])
-        geo_series = {
-            'task_id': feature['properties']['task_id'],
-            'score': feature['properties']['score'],
-            'prediction_id': id,
-            'type': feature['geometry']['type'],
-            'if_correct': False,
-            'geometry': pred_polygon
-        }
-        geo_series_list.append(geo_series)
-        id += 1
-    return geopandas.GeoDataFrame(geo_series_list)
+    for pklName in os.listdir(estmpath):
+        bboxes, scores = LoadPKL(os.path.join(estmpath, pklName))
+        for bbox, score in zip(bboxes, scores):
+            x1, y1, x2, y2 = bbox
+            bboxPlgn=[(x1, y1), (x1, y2), (x2, y2), (x2, y1), (x1, y1)]
+            bboxCoords = pixel_coords_to_latlon(pklName[:-4], bboxPlgn)
+            thisPred = {
+                "type": "Feature",
+                "properties": {
+                    "task_id": pklName[:-4],
+                    "prediction_id": id,
+                    "prediction_class": int(0),
+                    "score": float(score),
+                },
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [bboxCoords]
+                }
+            }
+            id += 1
+            predDict["features"].append(thisPred)
+    SaveJson(predDict, tarFileDir)

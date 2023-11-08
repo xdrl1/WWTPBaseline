@@ -33,10 +33,10 @@ def GetTrainedModel(model, confindence):
 
 def GetEstimation(predictor, img):
     out = predictor(img[:, :, ::-1])  # to BGR mode
-    boxes = out["instances"].pred_boxes.tensor.to("cpu")
+    bboxes = out["instances"].pred_boxes.tensor.to("cpu")
     scores = out["instances"].scores.to("cpu")
-    assert boxes.size(0) == scores.size(0)
-    return boxes.numpy(), scores.numpy()
+    assert bboxes.size(0) == scores.size(0)
+    return bboxes.numpy(), scores.numpy()
 
 
 def GetEstimationByFolder(predictor, srcFolder, tarFolder, imgFormat='jpg', plot=False, plotFolder=None, labelDir=None):
@@ -48,8 +48,8 @@ def GetEstimationByFolder(predictor, srcFolder, tarFolder, imgFormat='jpg', plot
         thisImg = LoadImg(os.path.join(srcFolder, imgFileName))
         # box is (x1, y1, x2, y2) 1=tl, 2=br
         # see: https://detectron2.readthedocs.io/en/latest/_modules/detectron2/structures/boxes.html
-        boxes, scores = GetEstimation(predictor, thisImg)
-        SavePKL([boxes, scores], os.path.join(tarFolder, imgFileName.replace(imgFormat, 'pkl')))
+        bboxes, scores = GetEstimation(predictor, thisImg)
+        SavePKL([bboxes, scores], os.path.join(tarFolder, imgFileName.replace(imgFormat, 'pkl')))
         if plot:
             # find label is...
             plt.figure(figsize=(11, 5), dpi=300.0)
@@ -60,7 +60,7 @@ def GetEstimationByFolder(predictor, srcFolder, tarFolder, imgFormat='jpg', plot
             plt.subplot(122)
             plt.imshow(thisImg)
             ax = plt.gca()
-            for box in boxes:
+            for box in bboxes:
                 x1, y1, x2, y2 = box
                 ax.add_patch(Rectangle((x1, y1), x2-x1, y2-y1, linewidth=1, edgecolor='r', facecolor='none'))
             plt.title("estimation")
