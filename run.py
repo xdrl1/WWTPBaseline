@@ -22,7 +22,7 @@ GetEstimationByFolder(
     plot=True,
     plotFolder=PATH_VA_ESTM_PLOT,
     labelDir=PATH_VA_LABEL)
-# Estm2GeoJson(PATH_VA_ESTM, PATH_VA_GEOJSON)
+Estm2GeoJson(PATH_VA_ESTM, PATH_VA_GEOJSON)
 # te
 GetEstimationByFolder(
     predictor,
@@ -32,4 +32,4 @@ GetEstimationByFolder(
     plot=True,
     plotFolder=PATH_TE_ESTM_PLOT,
     labelDir=PATH_TE_LABEL)
-# Estm2GeoJson(PATH_TE_ESTM, PATH_TE_GEOJSON)
+Estm2GeoJson(PATH_TE_ESTM, PATH_TE_GEOJSON)

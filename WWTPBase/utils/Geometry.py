@@ -18,8 +18,9 @@ def parse_tile_name(name):
 
 def pixel_coords_to_latlon(task_id, bbox_polygon):
     TileX, TileY, zoom = parse_tile_name(task_id)
-    PixelX = TileX
-    PixelY = TileY
+    print(TileX, TileY, zoom)
+    PixelX = TileX * 256
+    PixelY = TileY * 256
     coords = bbox_polygon
 
     translated = [[PixelX + y, PixelY + x] for x, y in coords]
