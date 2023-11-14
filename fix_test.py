@@ -4,7 +4,7 @@ from WWTPBase import PATH_TE_IMG_DIR
 
 
 """
-ONLY RUN ONCE
+ONLY RUN ONCE, if there is no dot in file names.
 """
 
 for imgName in os.listdir(PATH_TE_IMG_DIR):

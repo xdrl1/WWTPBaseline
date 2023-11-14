@@ -3,7 +3,7 @@ import os
 from shapely.geometry import Polygon
 
 from WWTPBase.utils.File import LoadPKL, SaveJson
-from WWTPBase.utils.Geometry import pixel_coords_to_latlon
+from WWTPBase.utils.Geometry import Coord2LonLat
 
 
 
@@ -21,7 +21,7 @@ def Estm2GeoJson(estmpath, tarFileDir):
         for bbox, score in zip(bboxes, scores):
             x1, y1, x2, y2 = bbox
             bboxPlgn=[(x1, y1), (x1, y2), (x2, y2), (x2, y1), (x1, y1)]
-            bboxCoords = pixel_coords_to_latlon(pklName[:-4], bboxPlgn)
+            bboxCoords = Coord2LonLat(pklName[:-4], bboxPlgn)
             thisPred = {
                 "type": "Feature",
                 "properties": {

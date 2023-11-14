@@ -14,21 +14,21 @@ if RETRAIN:
 predictor = GetTrainedModel("model_final.pth", confindence=CONFINDENCE)
 
 # va
-GetEstimationByFolder(
-    predictor,
-    PATH_VA_IMG_DIR,
-    PATH_VA_ESTM,
-    imgFormat='png',
-    plot=True,
-    plotFolder=PATH_VA_ESTM_PLOT,
-    labelDir=PATH_VA_LABEL)
-Estm2GeoJson(PATH_VA_ESTM, PATH_VA_GEOJSON)
+# GetEstimationByFolder(
+#     predictor,
+#     PATH_VA_IMG_DIR,
+#     PATH_VA_ESTM,
+#     imgFormat='png',
+#     plot=True,
+#     plotFolder=PATH_VA_ESTM_PLOT,
+#     labelDir=PATH_VA_LABEL)
+# Estm2GeoJson(PATH_VA_ESTM, PATH_VA_GEOJSON)
 # te
 GetEstimationByFolder(
     predictor,
     PATH_TE_IMG_DIR,
     PATH_TE_ESTM,
-    imgFormat='jpg',
+    imgFormat='png',
     plot=True,
     plotFolder=PATH_TE_ESTM_PLOT,
     labelDir=PATH_TE_LABEL)
